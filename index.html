@@ -8,6 +8,7 @@
     <title>IA Golf Performance Dashboard 360° - Alvaro Peralta</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
         // Función para scroll con highlight
         function scrollToSection(sectionId) {
@@ -1965,7 +1966,83 @@
             }
         }
 
-        
+        /* ===== MERMAID DIAGRAM STYLES ===== */
+        .mermaid-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(74, 159, 216, 0.2);
+            overflow-x: auto;
+        }
+
+        .mermaid-section h2 {
+            color: #4A9FD8;
+            margin-bottom: 8px;
+            font-size: 1.4em;
+            font-weight: 800;
+        }
+
+        .mermaid-section .mermaid-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .mermaid-section .mermaid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            background: transparent !important;
+        }
+
+        .mermaid-section .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Mermaid diagrams grid for multiple diagrams in same tab */
+        .mermaid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .mermaid-grid .mermaid-section {
+            margin-bottom: 0;
+        }
+
+        /* PDF light mode overrides for Mermaid */
+        body.pdf-light-mode .mermaid-section {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(74, 159, 216, 0.3);
+        }
+
+        body.pdf-light-mode .mermaid-section h2 {
+            color: #2a6fa8;
+        }
+
+        body.pdf-light-mode .mermaid-section .mermaid-subtitle {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .mermaid-grid {
+                grid-template-columns: 1fr;
+            }
+            .mermaid-section {
+                padding: 15px;
+            }
+            .mermaid-section .mermaid {
+                min-height: 150px;
+                font-size: 12px;
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -2691,21 +2768,73 @@
                     <div style="padding: 20px; background: rgba(90,191,143,0.1); border-radius: 12px; border-left: 4px solid #5ABF8F;">
                         <strong style="color: #5ABF8F;">⚡ Quick Win:</strong>
                         <p style="margin: 8px 0 0 0; line-height: 1.7;">
-                            Compra <strong>5-Wood</strong> esta semana (inversión $300-500). 
+                            Compra <strong>5-Wood</strong> esta semana (inversión $300-500).
                             Cierra gap crítico 43m. Impacto inmediato.
                         </p>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- MERMAID: Journey - Evolución del Golfista -->
+            <div class="mermaid-section">
+                <h2>🗺️ Journey Map: Tu Camino de Mejora</h2>
+                <p class="mermaid-subtitle">Mapa emocional y técnico del viaje desde HCP 15 hacia HCP 10 — las etapas clave, los retos y los momentos de transformación.</p>
+                <pre class="mermaid">
+journey
+    title Viaje de Mejora de Alvaro — HCP 15 a HCP 10
+    section Diagnostico Inicial
+      Analisis TrackMan 258 golpes: 5: Jugador
+      Descubrir debilidades reales: 3: Jugador
+      Aceptar realidad tecnica: 2: Jugador
+    section Implementacion Tecnica
+      Correccion Attack Angle Driver: 4: Jugador, Coach
+      Practica intensiva Short Game: 5: Jugador
+      Sesiones de driving range: 3: Jugador
+      Optimizar gaps entre palos: 4: Jugador
+    section Consolidacion
+      Consistencia mejorada: 7: Jugador
+      Scores mas predecibles: 7: Jugador
+      Confianza renovada: 8: Jugador
+    section Objetivo
+      HCP 12 alcanzado: 8: Jugador
+      HCP 10 alcanzado: 9: Jugador
+                </pre>
+            </div>
+
+            <!-- MERMAID: Sequence Diagram - Flujo de Datos TrackMan -->
+            <div class="mermaid-section">
+                <h2>🔄 Flujo de Datos: De TrackMan al Insight</h2>
+                <p class="mermaid-subtitle">Cómo se transforman tus 258 golpes capturados por TrackMan en insights accionables a través del motor de IA del dashboard.</p>
+                <pre class="mermaid">
+sequenceDiagram
+    participant J as Jugador
+    participant T as TrackMan
+    participant D as Dashboard 360
+    participant AI as Motor IA
+
+    J->>T: Ejecuta swing
+    T->>T: Captura datos del golpe
+    Note over T: Club Speed, Ball Speed,<br/>Launch Angle, Spin Rate,<br/>Carry, Dispersion...
+    T->>D: Envia metricas por golpe
+    D->>D: Agrega 258 data points
+    D->>AI: Solicita analisis profundo
+    AI->>AI: Compara vs PGA Tour
+    AI->>AI: Calcula Strokes Gained
+    AI->>AI: Identifica gaps criticos
+    AI->>D: Genera recomendaciones
+    D->>J: Muestra insights y plan de accion
+    Note over J,AI: Ciclo continuo de mejora
+                </pre>
+            </div>
+
             <!-- Footer Logo -->
             <div class="tab-footer-logo">
                 <img src="AIvGolf_Identity_Performance_Enginev2.png" alt="AIvGolf - Golf Identity Performance Engine">
             </div>
-            
+
         </div>
-        
-        
+
+
         <!-- TAB: EVOLUCIÓN -->
         <div id="evolution" class="tab-content">
             
@@ -3265,19 +3394,52 @@
                         <strong style="color: #3A8FC8;">📊 Contexto vs PGA Tour:</strong> 
                         Tour promedio driver 1.48-1.50, maderas 1.47-1.50, irons 1.35-1.38. 
                         Tu 3W (1.48) ya está en nivel tour. Tus irons (1.30-1.35) están en rango amateur avanzado/semi-pro. 
-                        <strong style="color: #D4B55A;">Driver es tu única métrica significativamente bajo tour</strong> - 
+                        <strong style="color: #D4B55A;">Driver es tu única métrica significativamente bajo tour</strong> -
                         optimizando este único elemento puedes cerrar gap distancia completamente.
                     </div>
                 </div>
             </div>
-            
+
+            <!-- MERMAID: State Diagram - Estados del Handicap -->
+            <div class="mermaid-section">
+                <h2>🔀 Mapa de Estados: Evolución del Handicap</h2>
+                <p class="mermaid-subtitle">Diagrama de transiciones entre niveles de handicap — muestra las rutas de progresión, los posibles estancamientos y regresiones en tu camino hacia el single digit.</p>
+                <pre class="mermaid">
+stateDiagram-v2
+    [*] --> HCP_20_Plus: Inicio Golf
+    HCP_20_Plus --> HCP_15_18: Mejora basica
+    HCP_15_18 --> HCP_12_14: Consistencia
+    HCP_12_14 --> HCP_10_11: Short Game
+    HCP_10_11 --> HCP_8_9: Long Game
+    HCP_8_9 --> HCP_5_7: Dominio tecnico
+    HCP_5_7 --> HCP_Sub5: Elite amateur
+
+    HCP_15_18 --> HCP_15_18: Estancamiento
+    HCP_12_14 --> HCP_15_18: Regresion
+    HCP_10_11 --> HCP_12_14: Regresion
+    HCP_10_11 --> [*]: Objetivo HCP 10
+
+    note right of HCP_15_18
+        Estado actual de Alvaro
+        HCP 15 RFEG Sept 2025
+        Potencial 8.0 de 10
+    end note
+
+    note right of HCP_10_11
+        Objetivo a 18 meses
+        Requiere correccion
+        Attack Angle Driver
+    end note
+                </pre>
+            </div>
+
             <!-- Footer Logo -->
             <div class="tab-footer-logo">
                 <img src="AIvGolf_Identity_Performance_Enginev2.png" alt="AIvGolf - Golf Identity Performance Engine">
             </div>
 
         </div>
-        
+
         <!-- TAB: MIS CAMPOS -->
         <div id="campos" class="tab-content">
             
@@ -5983,14 +6145,56 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- MERMAID: Decision Tree - Selección de Palo -->
+            <div class="mermaid-section">
+                <h2>🌳 Árbol de Decisión: Selección de Palo por Distancia</h2>
+                <p class="mermaid-subtitle">Guía visual de selección de palo basada en tus distancias reales TrackMan — optimizada para tu bolsa actual y gaps identificados.</p>
+                <pre class="mermaid">
+flowchart TD
+    A["🎯 Distancia al Pin"] --> B{"Mayor a 230m?"}
+    B -->|Si| C["🏌️ Driver<br/>Carry: 225m | Total: 246m"]
+    B -->|No| D{"Mayor a 195m?"}
+    D -->|Si| E["🌲 3 Wood<br/>Carry: 197m | Total: 210m"]
+    D -->|No| F{"Mayor a 175m?"}
+    F -->|Si| G["⚡ Hybrid<br/>Carry: 171m | Total: 183m"]
+    F -->|No| H{"Mayor a 155m?"}
+    H -->|Si| I["🔷 Iron 5<br/>Carry: 161m | Total: 170m"]
+    H -->|No| J{"Mayor a 140m?"}
+    J -->|Si| K["🔷 Iron 6<br/>Carry: 151m | Total: 159m"]
+    J -->|No| L{"Mayor a 125m?"}
+    L -->|Si| M["🔷 Iron 7<br/>Carry: 140m | Total: 148m"]
+    L -->|No| N{"Mayor a 110m?"}
+    N -->|Si| O["🔶 Iron 8<br/>Carry: 128m | Total: 134m"]
+    N -->|No| P{"Mayor a 100m?"}
+    P -->|Si| Q["🔶 Iron 9<br/>Carry: 115m | Total: 121m"]
+    P -->|No| R{"Mayor a 85m?"}
+    R -->|Si| S["🎯 PW<br/>Carry: 103m | Total: 108m"]
+    R -->|No| T{"Mayor a 70m?"}
+    T -->|Si| U["🎯 GW<br/>Carry: 90m | Total: 96m"]
+    T -->|No| V["🎯 SW<br/>Carry: 82m | Total: 91m"]
+
+    style C fill:#E88B7A,stroke:#fff,color:#fff
+    style E fill:#D4B55A,stroke:#fff,color:#fff
+    style G fill:#D4B55A,stroke:#fff,color:#fff
+    style I fill:#4A9FD8,stroke:#fff,color:#fff
+    style K fill:#4A9FD8,stroke:#fff,color:#fff
+    style M fill:#4A9FD8,stroke:#fff,color:#fff
+    style O fill:#4A9FD8,stroke:#fff,color:#fff
+    style Q fill:#4A9FD8,stroke:#fff,color:#fff
+    style S fill:#5ABF8F,stroke:#fff,color:#fff
+    style U fill:#5ABF8F,stroke:#fff,color:#fff
+    style V fill:#5ABF8F,stroke:#fff,color:#fff
+                </pre>
+            </div>
+
             <!-- Footer Logo -->
             <div class="tab-footer-logo">
                 <img src="AIvGolf_Identity_Performance_Enginev2.png" alt="AIvGolf - Golf Identity Performance Engine">
             </div>
-            
+
         </div>
-        
+
         <!-- TAB: ANÁLISIS PROFUNDO -->
         <div id="deep-analysis" class="tab-content">
             
@@ -6957,21 +7161,143 @@
                                 driver + 3W para mantenerte en zona amarilla en segundo golpe. Evita zona roja.
                             </div>
                             <div style="padding: 12px; background: rgba(74,159,216,0.1); border-radius: 6px;">
-                                <strong>Par 5s:</strong> Oportunidad de birdie si gestionas bien. Lay-up estratégico 
+                                <strong>Par 5s:</strong> Oportunidad de birdie si gestionas bien. Lay-up estratégico
                                 a 80-100m (zona verde) en tercer golpe te da mejor chance que forzar approach desde 170m+ (zona roja).
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- MERMAID: Mindmap - Estructura de Métricas -->
+            <div class="mermaid-section">
+                <h2>🧠 Mapa Mental: Universo de Métricas de Golf</h2>
+                <p class="mermaid-subtitle">Organización jerárquica de todas las métricas que componen tu análisis 360° — desde el swing hasta el scoring.</p>
+                <pre class="mermaid">
+mindmap
+  root(("Golf Metrics 360"))
+    Swing
+      Club Speed
+        Driver 107.3 mph
+        3W 99.2 mph
+      Ball Speed
+        Driver 157.3 mph
+        Wedges 70-80 mph
+      Smash Factor
+        3W 1.48 Tour Level
+        Driver 1.46 Mejorable
+      Tempo
+        Ratio 3 a 1 Ideal PGA
+    Vuelo
+      Launch Angle
+        Driver 11.2 grados
+        Irons 18-25 grados
+      Attack Angle
+        Driver -2.4 grados Critico
+        Irons Negativo OK
+      Spin Rate
+        Driver 2800 rpm
+        Wedges 7000-9000 rpm
+      Carry Distance
+        Driver 225m
+        Total Bag 82-246m
+    Scoring
+      Handicap Index
+        Actual HCP 15
+        Objetivo HCP 10
+      Diferenciales
+        Mejor 10.2
+        Peor 22.1
+      Consistencia
+        Volatilidad por campo
+        Tendencia trimestral
+    Dispersion
+      Lateral
+        Driver 22m dispersion
+        Wedges 5-8m precision
+      Shot Zones
+        Verde 0-100m
+        Amarilla 100-170m
+        Roja 170m mas
+                </pre>
+            </div>
+
+            <!-- MERMAID: ER Diagram - Modelo de Datos -->
+            <div class="mermaid-section">
+                <h2>🗄️ Modelo de Datos: Estructura del Motor de Análisis</h2>
+                <p class="mermaid-subtitle">Relaciones entre las entidades principales del sistema — cómo se conectan jugador, sesiones, golpes, palos y métricas en el motor de IA.</p>
+                <pre class="mermaid">
+erDiagram
+    JUGADOR ||--o{ SESION : realiza
+    JUGADOR ||--o{ HANDICAP_HIST : registra
+    JUGADOR }|--|| PERFIL_IDENTIDAD : tiene
+    SESION ||--|{ GOLPE : contiene
+    SESION }|--|| CAMPO : jugada_en
+    GOLPE }|--|| PALO : ejecutado_con
+    PALO }|--|| CATEGORIA : pertenece_a
+    GOLPE ||--|| METRICA_VUELO : genera
+    GOLPE ||--|| METRICA_SWING : genera
+    CAMPO ||--o{ SCORING_ZONA : define
+
+    JUGADOR {
+        string nombre
+        float handicap_actual
+        float potencial
+        int golpes_analizados
+    }
+    SESION {
+        date fecha
+        string tipo
+        int num_golpes
+        string fuente_datos
+    }
+    GOLPE {
+        int id_golpe
+        float club_speed
+        float ball_speed
+        float carry
+        float total
+        float dispersion_lateral
+    }
+    PALO {
+        string nombre
+        string tipo
+        float loft
+        float gap_vs_anterior
+    }
+    CATEGORIA {
+        string nombre
+        string descripcion
+    }
+    METRICA_VUELO {
+        float launch_angle
+        float spin_rate
+        float max_height
+        float land_angle
+    }
+    METRICA_SWING {
+        float attack_angle
+        float swing_path
+        float face_angle
+        float smash_factor
+        float tempo_ratio
+    }
+    CAMPO {
+        string nombre
+        int par
+        float slope
+        float rating
+    }
+                </pre>
+            </div>
+
             <!-- Footer Logo -->
             <div class="tab-footer-logo">
                 <img src="AIvGolf_Identity_Performance_Enginev2.png" alt="AIvGolf - Golf Identity Performance Engine">
             </div>
-            
+
         </div>
-        
+
         <!-- TAB: ESTRATEGIA & ACCIÓN -->
         <div id="strategy" class="tab-content">
             
@@ -8954,14 +9280,106 @@
                         </p>
                     </div>
                 </div>
-                
+
             </div>
-            
+
+            <!-- MERMAID: Flowchart - Flujo de Mejora del Jugador -->
+            <div class="mermaid-section">
+                <h2>🔄 Ciclo de Mejora Continua</h2>
+                <p class="mermaid-subtitle">Proceso iterativo de mejora basado en datos — desde la captura TrackMan hasta la re-evaluación, pasando por Quick Wins y Proyectos Mayores.</p>
+                <pre class="mermaid">
+flowchart TD
+    A["📡 Captura TrackMan<br/>258 golpes analizados"] --> B["🔍 Analisis de Datos<br/>Dashboard 360"]
+    B --> C{"🎯 Identificar Gaps<br/>vs PGA Tour"}
+    C --> D["⚡ Quick Wins<br/>Bajo esfuerzo / Alto impacto"]
+    C --> E["⚙️ Proyectos Mayores<br/>Alto esfuerzo / Alto impacto"]
+    D --> F["🏌️ Practica Enfocada<br/>Plan 90 dias"]
+    E --> F
+    F --> G["📈 Re-evaluacion<br/>Nuevo test TrackMan"]
+    G -->|Mejora detectada| H["✅ Nuevo Baseline<br/>Actualizar metricas"]
+    G -->|Estancamiento| B
+    H --> A
+
+    style A fill:#4A9FD8,stroke:#fff,color:#fff
+    style C fill:#D4B55A,stroke:#fff,color:#fff
+    style D fill:#5ABF8F,stroke:#fff,color:#fff
+    style E fill:#E88B7A,stroke:#fff,color:#fff
+    style H fill:#5ABF8F,stroke:#fff,color:#fff
+                </pre>
+            </div>
+
+            <!-- MERMAID: Gantt - Plan de Mejora 90 Días -->
+            <div class="mermaid-section">
+                <h2>📅 Timeline: Plan de Mejora 90 Días</h2>
+                <p class="mermaid-subtitle">Cronograma detallado de las acciones de mejora — Attack Angle, Short Game, evaluación y ajuste del plan.</p>
+                <pre class="mermaid">
+gantt
+    title Plan de Mejora 90 Dias - Alvaro Peralta
+    dateFormat  YYYY-MM-DD
+    section Attack Angle Driver
+    Diagnostico inicial y video       :a1, 2025-10-01, 7d
+    Drills de tee alto y angle fix    :a2, after a1, 21d
+    Consolidacion con coach           :a3, after a2, 14d
+    section Short Game Precision
+    Analisis distancias wedges        :b1, 2025-10-01, 7d
+    Practica control de distancias    :b2, after b1, 28d
+    Control de spin avanzado          :b3, after b2, 14d
+    section Long Game Gaps
+    Evaluar 5-Wood para gap 43m      :c1, 2025-10-08, 14d
+    Integracion nuevo palo            :c2, after c1, 14d
+    section Evaluacion Final
+    Re-test TrackMan completo         :d1, 2025-12-22, 7d
+    Analisis de resultados            :d2, after d1, 3d
+    Ajuste del plan siguiente fase    :d3, after d2, 4d
+                </pre>
+            </div>
+
+            <div class="mermaid-grid">
+                <!-- MERMAID: Quadrant Chart - Matriz Quick Wins -->
+                <div class="mermaid-section">
+                    <h2>🎯 Matriz: Esfuerzo vs Impacto</h2>
+                    <p class="mermaid-subtitle">Priorización de las mejoras técnicas — identifica los Quick Wins con mayor retorno.</p>
+                    <pre class="mermaid">
+quadrantChart
+    title Priorizacion de Mejoras Tecnicas
+    x-axis Bajo Esfuerzo --> Alto Esfuerzo
+    y-axis Bajo Impacto --> Alto Impacto
+    quadrant-1 Proyectos Mayores
+    quadrant-2 Quick Wins
+    quadrant-3 Ignorar por ahora
+    quadrant-4 Revisitar despues
+    Attack Angle Driver: [0.65, 0.92]
+    Tempo Backswing: [0.25, 0.65]
+    Smash Factor Irons: [0.45, 0.55]
+    Grip Pressure: [0.15, 0.45]
+    Swing Path Fix: [0.78, 0.75]
+    Setup Postura: [0.2, 0.4]
+    Comprar 5-Wood: [0.3, 0.82]
+    Control Spin Wedges: [0.35, 0.6]
+                    </pre>
+                </div>
+
+                <!-- MERMAID: Pie Chart - Distribución de Práctica -->
+                <div class="mermaid-section">
+                    <h2>🥧 Distribución Óptima de Práctica</h2>
+                    <p class="mermaid-subtitle">Reparto recomendado del tiempo de práctica basado en tus gaps identificados.</p>
+                    <pre class="mermaid">
+pie showData
+    title Distribucion Optima de Practica Semanal
+    "Short Game - Wedges" : 30
+    "Putting" : 20
+    "Driver - Attack Angle" : 25
+    "Irons - Consistencia" : 15
+    "Course Management" : 10
+                    </pre>
+                </div>
+            </div>
+
             <!-- Footer Logo -->
             <div class="tab-footer-logo">
                 <img src="AIvGolf_Identity_Performance_Enginev2.png" alt="AIvGolf - Golf Identity Performance Engine">
             </div>
-            
+
         </div>
         
         
@@ -8974,17 +9392,22 @@
         function showTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             const buttons = document.querySelectorAll('.tab-button');
-            
+
             tabs.forEach(tab => tab.classList.remove('active'));
             buttons.forEach(btn => btn.classList.remove('active'));
-            
+
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
-            
+
             // Force chart resize on tab change (mobile fix)
             setTimeout(() => {
                 window.dispatchEvent(new Event('resize'));
             }, 100);
+
+            // Render Mermaid diagrams in newly visible tab
+            setTimeout(() => {
+                renderMermaidInTab(tabName);
+            }, 200);
         }
         
         // Función para abrir video de YouTube según la pestaña activa
@@ -13237,6 +13660,144 @@
             console.error('Error en Advanced History Charts:', error.message, error.stack);
             alert('Error al cargar algunos gráficos avanzados. Revisa la consola para más detalles.');
         }
+    </script>
+
+    <!-- Mermaid.js Initialization -->
+    <script>
+        // Initialize Mermaid with dark theme matching the dashboard
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                darkMode: true,
+                background: '#1a1a2e',
+                primaryColor: '#4A9FD8',
+                secondaryColor: '#5ABF8F',
+                tertiaryColor: '#D4B55A',
+                primaryTextColor: '#ffffff',
+                secondaryTextColor: '#e0e0e0',
+                lineColor: '#4A9FD8',
+                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+                fontSize: '14px',
+                primaryBorderColor: '#4A9FD8',
+                noteBkgColor: 'rgba(74,159,216,0.2)',
+                noteTextColor: '#ffffff',
+                noteBorderColor: '#4A9FD8',
+                actorBkg: '#4A9FD8',
+                actorTextColor: '#ffffff',
+                actorLineColor: '#4A9FD8',
+                signalColor: '#ffffff',
+                signalTextColor: '#ffffff',
+                labelBoxBkgColor: 'rgba(74,159,216,0.15)',
+                labelBoxBorderColor: '#4A9FD8',
+                labelTextColor: '#ffffff',
+                loopTextColor: '#ffffff',
+                activationBorderColor: '#5ABF8F',
+                activationBkgColor: 'rgba(90,191,143,0.3)',
+                sequenceNumberColor: '#ffffff',
+                sectionBkgColor: 'rgba(74,159,216,0.15)',
+                altSectionBkgColor: 'rgba(90,191,143,0.1)',
+                sectionBkgColor2: 'rgba(212,181,90,0.15)',
+                taskBkgColor: '#4A9FD8',
+                taskTextColor: '#ffffff',
+                taskBorderColor: '#ffffff',
+                activeTaskBkgColor: '#5ABF8F',
+                activeTaskBorderColor: '#ffffff',
+                doneTaskBkgColor: 'rgba(90,191,143,0.5)',
+                doneTaskBorderColor: '#5ABF8F',
+                critBkgColor: '#E88B7A',
+                critBorderColor: '#ffffff',
+                gridColor: 'rgba(255,255,255,0.15)',
+                todayLineColor: '#D4B55A',
+                pieTitleTextColor: '#ffffff',
+                pieSectionTextColor: '#ffffff',
+                pieLegendTextColor: '#ffffff',
+                pieStrokeColor: '#1a1a2e',
+                pie1: '#4A9FD8',
+                pie2: '#5ABF8F',
+                pie3: '#D4B55A',
+                pie4: '#E88B7A',
+                pie5: '#9B59B6',
+                pie6: '#3498DB',
+                pie7: '#1ABC9C',
+                quadrant1Fill: 'rgba(232,139,122,0.3)',
+                quadrant2Fill: 'rgba(90,191,143,0.3)',
+                quadrant3Fill: 'rgba(255,255,255,0.05)',
+                quadrant4Fill: 'rgba(212,181,90,0.15)',
+                quadrant1TextFill: '#E88B7A',
+                quadrant2TextFill: '#5ABF8F',
+                quadrant3TextFill: 'rgba(255,255,255,0.5)',
+                quadrant4TextFill: '#D4B55A',
+                quadrantPointFill: '#4A9FD8',
+                quadrantPointTextFill: '#ffffff',
+                quadrantXAxisTextFill: '#ffffff',
+                quadrantYAxisTextFill: '#ffffff',
+                quadrantTitleFill: '#ffffff'
+            },
+            flowchart: {
+                curve: 'basis',
+                padding: 15,
+                htmlLabels: true
+            },
+            sequence: {
+                actorMargin: 80,
+                messageMargin: 40,
+                mirrorActors: false,
+                bottomMarginAdj: 10,
+                useMaxWidth: true
+            },
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 25,
+                barGap: 6,
+                topPadding: 50,
+                leftPadding: 120,
+                gridLineStartPadding: 35,
+                fontSize: 12,
+                sectionFontSize: 14,
+                numberSectionStyles: 4,
+                useMaxWidth: true
+            },
+            mindmap: {
+                padding: 20,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                fontSize: 13
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.75
+            },
+            stateDiagram: {
+                useMaxWidth: true
+            }
+        });
+
+        // Render Mermaid diagrams in a specific tab
+        function renderMermaidInTab(tabId) {
+            const tab = document.getElementById(tabId);
+            if (!tab) return;
+            const diagrams = tab.querySelectorAll('.mermaid:not([data-processed])');
+            if (diagrams.length > 0) {
+                try {
+                    mermaid.run({ nodes: Array.from(diagrams) });
+                } catch (err) {
+                    console.warn('Mermaid render warning for tab ' + tabId + ':', err);
+                }
+            }
+        }
+
+        // Render diagrams in the initially active tab after page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const activeTab = document.querySelector('.tab-content.active');
+                if (activeTab) {
+                    renderMermaidInTab(activeTab.id);
+                }
+            }, 800);
+        });
     </script>
 </body>
 </html>
